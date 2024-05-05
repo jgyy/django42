@@ -17,13 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
+app_name = 'posts'
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.HomePage.as_view(), name='home'),
-    path('accounts/', include('accounts.urls', namespace='accounts')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('test/', views.TestPage.as_view(), name='test'),
-    path('thanks/', views.ThanksPage.as_view(), name='thanks'),
-    path('posts/', include('posts.urls', namespace='posts')),
-    path('groups/', include('groups.urls', namespace='groups')),
+    path('', views.PostList.as_view(), name='all'),
+    path('new/', views.CreatePost.as_view(), name='create'),
+    path('by/<str:username>/', views.UserPosts.as_view(), name='for_user'),
+    path('by/<str:username>/<int:pk>/', views.PostDetail.as_view(), name='single'),
+    path('delete/<int:pk>/', views.DeletePost.as_view(), name='delete'),
 ]

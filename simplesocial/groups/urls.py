@@ -17,13 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
+app_name = 'groups'
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.HomePage.as_view(), name='home'),
-    path('accounts/', include('accounts.urls', namespace='accounts')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('test/', views.TestPage.as_view(), name='test'),
-    path('thanks/', views.ThanksPage.as_view(), name='thanks'),
-    path('posts/', include('posts.urls', namespace='posts')),
-    path('groups/', include('groups.urls', namespace='groups')),
+    path('', views.ListGroups.as_view(), name='all'),
+    path('new/', views.CreateGroup.as_view(), name='create'),
+    path('posts/in/<slug:slug>/', views.SingleGroup.as_view(), name='single'),
+    path('join/<slug:slug>/', views.JoinGroup.as_view(), name='join'),
+    path('leave/<slug:slug>/', views.LeaveGroup.as_view(), name='leave'),
 ]
